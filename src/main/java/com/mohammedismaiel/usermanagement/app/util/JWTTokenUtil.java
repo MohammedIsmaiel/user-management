@@ -16,19 +16,18 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Payload;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+
 import static com.mohammedismaiel.usermanagement.app.constant.SecurityConstant.*;
+
 import com.mohammedismaiel.usermanagement.app.domain.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JWTTokenUtil {
+    @Value("${jwt.secret}")
+    private String secret;
 
-    private final String secret;
-
-    JWTTokenUtil(@Value("${jwt.secret}") String secret) {
-        this.secret = secret;
-    }
 
     public String extractUsername(String token) {
         // return getJWTVerifier().verify(token).getSubject();
@@ -70,7 +69,7 @@ public class JWTTokenUtil {
     }
 
     public Authentication getAuthentication(String username, List<? extends GrantedAuthority> authorities,
-            HttpServletRequest request) {
+                                            HttpServletRequest request) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 username, null, authorities);
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -11,7 +11,6 @@ public class SecurityConstant {
     public static final String FORBIDDEN_MESSAGE = "YOU NEED TO LOGIN TO ACCESS THIS CONTENT";
     public static final String ACCESS_DENIED_MESSAGE = "YOU DON'T HAVE PERMISION TO THIS CONTENT";
     public static final String OPTIONS_HTTP_METHOUD = "YOU DON'T HAVE PERMISION TO THIS CONTENT";
-    public static final String[] PUBLIC_URLS = { "/user/login", "/user/register", "/user/home",
-            "/user/resetpassword/**", "/user/image/**" };
+    public static final String[] PUBLIC_URLS = {"/api/auth/**" };
     // public static final String[] PUBLIC_URLS = {"**"};
 }

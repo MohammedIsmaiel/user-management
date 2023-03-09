@@ -2,6 +2,9 @@ package com.mohammedismaiel.usermanagement.app.security.filter;
 
 import java.io.IOException;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +20,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class JWTAuthFilter extends OncePerRequestFilter {
     private JWTTokenUtil jwtTokenUtil;
     private UserDetailsService userDetailsService;

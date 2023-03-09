@@ -26,6 +26,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String username;
+    private String name;
     private String password;
     private Role role;
     private boolean isAccountNonExpired;
