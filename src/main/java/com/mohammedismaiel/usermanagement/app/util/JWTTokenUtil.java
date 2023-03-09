@@ -1,9 +1,14 @@
 package com.mohammedismaiel.usermanagement.app.util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
@@ -13,6 +18,8 @@ import com.auth0.jwt.interfaces.Payload;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import static com.mohammedismaiel.usermanagement.app.constant.SecurityConstant.*;
 import com.mohammedismaiel.usermanagement.app.domain.User;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JWTTokenUtil {
@@ -60,5 +67,13 @@ public class JWTTokenUtil {
     private boolean isTokenExpired(JWTVerifier verifier, String token) {
         Date expiration = extractClaim(token, Payload::getExpiresAt);
         return expiration.before(new Date());
+    }
+
+    public Authentication getAuthentication(String username, List<? extends GrantedAuthority> authorities,
+            HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                username, null, authorities);
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return authenticationToken;
     }
 }
